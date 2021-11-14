@@ -2,8 +2,11 @@
 
 Utilities for assisting with chess games and position data. 
 
-This was initially movitvated by an interest in transforming a chess diagram
+This was initially motivated by an interest in transforming a chess diagram
 (with only image data) into something that can be fed into a chess engine.
+
+Assembling by hand something in the [Forsyth-Edwards Notation (FEN)](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) syntax, or worse,
+the [Portable Game Notation (PGN)](https://en.wikipedia.org/wiki/Portable_Game_Notation) can be extremely tedious and error prone, something utilities here are intended to help with. 
 
 ## Usage
 
