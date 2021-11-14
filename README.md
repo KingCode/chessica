@@ -2,6 +2,9 @@
 
 Utilities for assisting with chess games and position data. 
 
+This was itially movitvated by an interest in transforming a chess diagram
+(with only image data) into something that can be fed into a chess engine.
+
 ## Usage
 
 From a diagram position, one can enter pieces and occupied squares into 
