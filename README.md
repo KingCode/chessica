@@ -12,13 +12,14 @@ the [Portable Game Notation (PGN)](https://en.wikipedia.org/wiki/Portable_Game_N
 
 Add the following to your dependencies:
 
-### Leiningen/Boot
+#### Leiningen/Boot
 
-[org.clojars.kingnuscodus/chessica "0.1.0-SNAPSHOT"]
+[org.clojars.kingnuscodus/chessica "0.1.1-SNAPSHOT"]
 
-### Clojure CLI/deps.edn
+#### Clojure CLI/deps.edn
 
-org.clojars.kingnuscodus/chessica {:mvn/version "0.1.0-SNAPSHOT"}
+org.clojars.kingnuscodus/chessica {:mvn/version "0.1.1-SNAPSHOT"}
+
 
 ## Usage
 
@@ -39,7 +40,7 @@ the `chessica.formats.fen/populate` function like so:
 
 ## Documentation
 
-[Cljdoc API](https://cljdoc.org/d/org.clojars.kingnuscodus/chessica/0.1.0-SNAPSHOT/api/chessica.formats.fen)
+[Cljdoc API](https://cljdoc.org/d/org.clojars.kingnuscodus/chessica/0.1.1-SNAPSHOT/doc/readme)
 
 ### TODOs
 
