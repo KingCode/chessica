@@ -6,6 +6,9 @@
   :dependencies [[org.clojure/clojure "1.10.3"]]
   :repl-options {:init-ns chessica.core}
   :deploy-repositories [["releases"  
-                         {:sign-releases false :url "https://clojars.org"}]
+                         {:sign-releases false :url "https://clojars.org"
+                          :creds :gpg}]
                         ["snapshots" 
-                         {:sign-releases false :url "https://clojars.org"}]])
+                         {:sign-releases false :url "https://clojars.org"
+                          :username [:gpg :env/clojars_username]
+                          :password [:gpg :env/clojars_token]}]])
