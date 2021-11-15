@@ -27,11 +27,13 @@ the `chessica.formats.fen/populate` function like so:
 
 ```clojure
 (require '[chessica.formats.fen :as fen])
+
 (fen/populate [["rbnnk" "a8 c8 b7 b6 h6"]
               [:p "g7 a6 c5 b4 h4"]
               [:P "a2 b3 c4 d5 e3 g2"]
               ["NNRK" "e7 e4 f1 g1"]]
               "w - - 0 40")
+
 ;;=> "r1b5/1n2N1p1/pn5k/2pP4/1pP1N2p/1P2P3/P5P1/5RK1 w - - 0 40"
 ```
 
