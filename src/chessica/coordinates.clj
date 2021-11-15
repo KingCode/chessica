@@ -5,9 +5,6 @@
   Note the convention of using the 8th rank of the chess board as the first
   row of the cartesian representation.")
 
-
-(defn ->vks [m] (->> m (map reverse) (map vec) (into {})) )
-
 (defn flip [m]
   (-> {} (into (comp (map reverse) 
                      (map vec))
