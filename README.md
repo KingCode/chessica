@@ -40,7 +40,7 @@ the `chessica.formats.fen/populate` function like so:
 
 ## Documentation
 
-[Cljdoc API](https://cljdoc.org/d/org.clojars.kingnuscodus/chessica/0.1.1-SNAPSHOT/doc/readme)
+[API](https://cljdoc.org/d/org.clojars.kingnuscodus/chessica/0.1.1-SNAPSHOT/doc/readme)
 
 ### TODOs
 
