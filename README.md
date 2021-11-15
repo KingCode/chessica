@@ -35,6 +35,10 @@ the `chessica.formats.fen/populate` function like so:
 ;;=> "r1b5/1n2N1p1/pn5k/2pP4/1pP1N2p/1P2P3/P5P1/5RK1 w - - 0 40"
 ```
 
+## Documentation
+
+[Cljdoc API](https://cljdoc.org/d/org.clojars.kingnuscodus/chessica/0.1.0-SNAPSHOT/api/chessica.formats.fen)
+
 ## TODO
 
 - Add PGN utility
