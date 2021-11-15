@@ -10,5 +10,5 @@
                           :creds :gpg}]
                         ["snapshots" 
                          {:sign-releases false :url "https://clojars.org"
-                          :username [:gpg :env/clojars_username]
-                          :password [:gpg :env/clojars_token]}]])
+                          :username [:env/clojars_username]
+                          :password [:env/clojars_token]}]])
