@@ -159,11 +159,17 @@
   board updates - see `update-board`.
   Example:
 
-  (populate [[:p \"a7 g6 f7 e6 d5 c7 b7 a7\"]
-             [\"krrnq\" \"g8 f8 a8 e5 c4\"]
-             [:P \"g5 f2 c2 b2 a3\"]
-             [\"QKRRBN\" \"g3 d1 h1 a1 g1 b1\"]]
-             \"b KQ - 0 40\")
+  (populate [[:p \"a7 g6 f7 e6 d5 c7 b7 a7\"] ;; black pawn structure
+
+             [\"krrnq\" \"g8 f8 a8 e5 c4\"]   ;; black king on g8, rooks on 
+                                          ;; f8 and a8, and so forth  
+
+             [:P \"g5 f2 c2 b2 a3\"]        ;; white pawn structure
+
+             [\"QKRRBN\" \"g3 d1 h1 a1 g1 b1\"]] ;; white pieces
+
+             \"b KQ - 0 40\")  ;; FEN string tail: turn to play, etc.
+
  ;;=> \"r4rk1/ppp2p2/4p1p1/3pn1P1/2q5/P5Q1/1PP2P2/RN1K2BR b KQ - 0 40\"
 "
   ([pairs completion-dat]
