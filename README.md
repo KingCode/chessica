@@ -39,7 +39,7 @@ the `chessica.formats.fen/populate` function like so:
 
 [Cljdoc API](https://cljdoc.org/d/org.clojars.kingnuscodus/chessica/0.1.0-SNAPSHOT/api/chessica.formats.fen)
 
-## TODO
+### TODOs
 
 - PGN utility
 - Command-line application from file input with a file format. 
