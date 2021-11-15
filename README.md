@@ -41,9 +41,9 @@ the `chessica.formats.fen/populate` function like so:
 
 ## TODO
 
-- Add PGN utility
-- Add command-line application from file input with a file format. 
-- Example project to interact with a chess engine.
+- PGN utility
+- Command-line application from file input with a file format. 
+- Example project interacting with a chess engine.
 
 ## License
 
