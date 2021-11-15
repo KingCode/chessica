@@ -5,7 +5,9 @@
 
   See:
   https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation"
-  (:require [clojure.string :refer [split join]]))
+  (:require  [chessica.board2 :as board]
+             [chessica.coordinates :as coord]
+             [clojure.string :refer [split join]]))
 
 (defn ->num [s]
   (Integer/parseInt s))
@@ -24,23 +26,12 @@
                                 (conj cols (-> c str keyword))))
                             []))))))
 
-(defn ->vks [m] (->> m (map reverse) (map vec) (into {})) )
-(def col-idxs (zipmap "abcdefgh" (range 8)))
-(def col-fen (->vks col-idxs))
-(def row-idxs (zipmap "12345678" (reverse (range 8))))
-(def row-fen (->vks row-idxs))
-
-(defn ->rc-idxs [[c r]]
-  [(row-idxs r) (col-idxs c)])
-
-(defn ->cr [[r-idx c-idx]])
-
 (defn str->kws [s]
   (some->> s seq (mapv (comp keyword str))))
 
 (defn str->ep [s]
   (when (not= "-" s)
-    (->rc-idxs s)))
+    (coord/->row-col-idxs s)))
 
 (defn str->castle [s]
   (if (not= "-" s)
@@ -68,7 +59,7 @@
                 []
                 (mapv (comp keyword str) castling))
     :en-passant (when (not= "-" ep) 
-                  (->rc-idxs ep))
+                  (coord/->row-col-idxs ep))
     :clock (->num clock)
     :move (->num move)}))
 
@@ -96,7 +87,6 @@
   "Transforms a data map (as per the output of ->data)
    into a FEN string."
 [{:keys [pos turn castling en-passant clock move]}]
-  ;; (let [pos (->pos-fen pos)])
   (join " " 
         [(->pos-fen pos)
          (kws->str [turn])
@@ -104,25 +94,11 @@
            (kws->str castling)
            "-")
          (if-let  [[r c] en-passant]
-           (join [(col-fen c) (row-fen r)])
+           (join [(coord/->file c), (coord/->rank-char r)])
            "-")
          clock move]))
 
 (def fen-start "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
-
-(def empty-board (->> (repeat 8 nil) vec (repeat 8) vec))
-
-(defn insert [piece rc board]
-  (assoc-in board rc piece))
-
-(defn update-board* 
-  ([pieces rc-idxs]
-   (update-board* pieces rc-idxs empty-board))
-  ([pieces rc-idxs board]
-   (->> rc-idxs (map vector pieces)
-        (reduce (fn [board [piece rc]]
-                  (insert piece rc board))
-                board))))
 
 (defn update-board
   "Adds/remove/replace a chess piece to one or more locations on a chess board,
@@ -135,11 +111,12 @@
   of each square in 'locs-str."
 [p-or-ps locs-str board]
   (let [rc-idxs (->> #"\s+" (split locs-str)
-                     (map ->rc-idxs))
+                     (map coord/->row-col-idxs)
+                     #_(map ->rc-idxs))
         pieces (if (keyword? p-or-ps)
                  (vec (repeat (count rc-idxs) p-or-ps))
                  (str->kws p-or-ps))]
-    (update-board* pieces rc-idxs board)))
+    (board/update-board pieces rc-idxs board)))
 
 (defn complete-data [other-dat-str board]
   (let [[turn castle ep clock move] (split other-dat-str #"\s+")]
@@ -173,7 +150,7 @@
  ;;=> \"r4rk1/ppp2p2/4p1p1/3pn1P1/2q5/P5Q1/1PP2P2/RN1K2BR b KQ - 0 40\"
 "
   ([pairs completion-dat]
-   (populate empty-board pairs completion-dat))
+   (populate board/empty-board pairs completion-dat))
   ([board pairs completion-dat]
    (->> pairs
         (reduce (fn [board [p-or-ps locs]]
