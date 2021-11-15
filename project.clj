@@ -5,5 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.3"]]
   :repl-options {:init-ns chessica.core}
-  :deploy-repositories [["alpha" {:url "https://clojars.org"
-                                  :sign-releases false}]])
+  :deploy-repositories [["releases"  
+                         {:sign-releases false :url "https://clojars.org"}]
+                        ["snapshots" 
+                         {:sign-releases false :url "https://clojars.org"}]])
