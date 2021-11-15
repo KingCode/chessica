@@ -7,7 +7,7 @@
   :repl-options {:init-ns chessica.core}
   :deploy-repositories [["releases"  
                          {:sign-releases false :url "https://clojars.org"
-                          :creds :gpg}]
+                          }]
                         ["snapshots" 
                          {:sign-releases false :url "https://clojars.org"
                           :username [:env/clojars_username]
