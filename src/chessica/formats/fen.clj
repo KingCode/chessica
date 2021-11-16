@@ -109,14 +109,15 @@
   and board is an 8x8 vector of vectors of either nil or occupied squares.
   The updated board is returned. 'piece can be set to `nil` to remove the content 
   of each square in 'locs-str."
-[p-or-ps locs-str board]
+[board p-or-ps locs-str]
   (let [rc-idxs (->> #"\s+" (split locs-str)
                      (map coord/->row-col-idxs)
                      #_(map ->rc-idxs))
         pieces (if (keyword? p-or-ps)
                  (vec (repeat (count rc-idxs) p-or-ps))
                  (str->kws p-or-ps))]
-    (board/update-board board pieces rc-idxs)))
+    (board/update-board board pieces rc-idxs :throw-on-conflict? true)))
+
 
 (defn complete-data [other-dat-str board]
   (let [[turn castle ep clock move] (split other-dat-str #"\s+")]
@@ -127,6 +128,18 @@
      :clock (->num clock)
      :move (->num move)}))
 
+
+(defn ->ex-info [msgs pairs board conflicts]
+  (ex-info (->> msgs
+                (interpose "\n\t") (apply str)
+                (str "Errors:"))
+           {:input 
+            {:pairs pairs :board board}
+            :conflicts 
+            (into {} 
+                  (map (fn [[rc vs]]
+                         [(coord/->file-rank-str rc), vs]))
+                  conflicts)}))
 
 (defn populate 
   "Creates a FEN string from a starting board - an 8x8 vovs,
@@ -153,8 +166,27 @@
    (populate board/empty-board pairs completion-dat))
   ([board pairs completion-dat]
    (->> pairs
-        (reduce (fn [board [p-or-ps locs]]
-                  (update-board p-or-ps locs board))
-                board)
+        (reduce (fn [[board conflicts msgs] [p-or-ps locs]]
+                  (try
+                    [(update-board board p-or-ps locs)  conflicts msgs]
+                    (catch Exception e
+                      (->> e ex-data ((juxt :board :conflicts))
+                           ((fn [[bd cfs]]
+                               [bd, 
+                                (merge-with conj conflicts cfs),
+                                (conj msgs (.getMessage e))]))))))
+                [board {} #{}])
+        ((fn [[bd cfs error-msgs]]
+            (if (seq error-msgs)
+              (throw (->ex-info error-msgs pairs board cfs))
+              bd)))
         (complete-data completion-dat)
         ->fen)))
+
+(defn populate-friendly 
+  ([pairs completion-dat])
+  ([board pairs completion-dat]
+   (try (populate board pairs completion-dat)
+        (catch clojure.lang.ExceptionInfo e
+          (println "Input Error(s):\n" (.getMessage e) "\n"
+                   (-> e ex-data :conflicts))))))

@@ -68,4 +68,5 @@
   [[file rank]]
   [(->row-idx rank), (->col-idx file)])
 
-
+(defn ->file-rank-str [[row col]]
+  (str (->file col) (->rank-char row)))

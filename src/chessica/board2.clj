@@ -26,5 +26,6 @@
     (if (and e-on-cfs? (not (empty? cfs)))
       (throw (ex-info "Two or more conflicting pieces" 
                       {:pieces pieces :coords rc-idxs
+                       :board board'
                        :conflicts cfs}))
       board')))
