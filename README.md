@@ -14,12 +14,11 @@ Add the following to your dependencies:
 
 #### Leiningen/Boot
 
-[org.clojars.kingnuscodus/chessica "0.1.1-SNAPSHOT"]
+[org.clojars.kingnuscodus/chessica "0.1.2-SNAPSHOT"]
 
 #### Clojure CLI/deps.edn
 
-org.clojars.kingnuscodus/chessica {:mvn/version "0.1.1-SNAPSHOT"}
-
+org.clojars.kingnuscodus/chessica {:mvn/version "0.1.2-SNAPSHOT"}
 
 ## Usage
 
