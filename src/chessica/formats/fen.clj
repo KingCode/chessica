@@ -116,7 +116,7 @@
         pieces (if (keyword? p-or-ps)
                  (vec (repeat (count rc-idxs) p-or-ps))
                  (str->kws p-or-ps))]
-    (board/update-board pieces rc-idxs board)))
+    (board/update-board board pieces rc-idxs)))
 
 (defn complete-data [other-dat-str board]
   (let [[turn castle ep clock move] (split other-dat-str #"\s+")]
