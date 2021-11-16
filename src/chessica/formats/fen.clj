@@ -184,7 +184,8 @@
         ->fen)))
 
 (defn populate-friendly 
-  ([pairs completion-dat])
+  ([pairs completion-dat]
+   (populate-friendly board/empty-board pairs completion-dat))
   ([board pairs completion-dat]
    (try (populate board pairs completion-dat)
         (catch clojure.lang.ExceptionInfo e

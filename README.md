@@ -37,6 +37,18 @@ the `chessica.formats.fen/populate` function like so:
 
 ;;=> "r1b5/1n2N1p1/pn5k/2pP4/1pP1N2p/1P2P3/P5P1/5RK1 w - - 0 40"
 ```
+Since chess engines can be finicky with inconsistencies, conflicting
+pieces result in an exception. When typing in a new position, use
+`populate-friendly`:
+
+```clojure
+(fen/populate-friendly [["rkK" "a3 a3 g5"]] "b - - 0 40")
+;;=>
+;; Input Error(s):
+;; Errors:Two or more conflicting pieces 
+;; {a3 #{:r :k}}
+nil
+``` 
 
 ## Documentation
 

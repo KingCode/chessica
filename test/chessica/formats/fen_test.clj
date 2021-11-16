@@ -1,5 +1,6 @@
 (ns chessica.formats.fen-test
   (:require [chessica.formats.fen :as fen :refer [populate ->fen]] 
+            [chessica.board2 :as board]
             [clojure.test :refer [is are deftest testing]]
             [clojure.string :refer [split]]))
 
@@ -15,7 +16,7 @@
         (let [kw? (keyword? tail-or-kw) 
               act (-> (populate pairs (if kw?
                                         (tail tail-or-kw)
-                                        tail-or-kw)))]
+                                          tail-or-kw)))]
           (is (= exp 
                  (if kw?
                    (->> (split act #"\s+")
@@ -85,7 +86,19 @@
        [:p "g7 a6 c5 b4 h4"]
        [:P "a2 b3 c4 d5 e3 g2"]
        ["NNRK" "e7 e4 f1 g1"]] :w
-      "r1b5/1n2N1p1/pn5k/2pP4/1pP1N2p/1P2P3/P5P1/5RK1 w")))
+      "r1b5/1n2N1p1/pn5k/2pP4/1pP1N2p/1P2P3/P5P1/5RK1 w"))
+
+  (testing "conflict detection"
+    (are [pairs board] (is (thrown? clojure.lang.ExceptionInfo 
+                                    #".*[C/c]onflict.*"
+                                    (populate (or board board/empty-board)
+                                              pairs
+                                              "w - - 0 40")))
+      [["rb" "a3 a3"]] nil
+
+      [["rbnnk" "a8 c8 b7 b6 h6"]
+       [:p "h6"]] nil
+)))
 
 
 
