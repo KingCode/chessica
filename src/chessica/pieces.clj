@@ -46,7 +46,7 @@
 
 (def pieces-no-color (keys piece-idxs))
 
-(def piece-with-color
+(def pieces-with-color
   (keys piece-keywords))
 
 (def catalogue
