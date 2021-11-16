@@ -51,7 +51,7 @@ nil
 
 ## Documentation
 
-[API](https://cljdoc.org/d/org.clojars.kingnuscodus/chessica/0.1.1-SNAPSHOT/doc/readme)
+[API](https://cljdoc.org/d/org.clojars.kingnuscodus/chessica/0.1.2-SNAPSHOT/doc/readme)
 
 ### TODOs
 
